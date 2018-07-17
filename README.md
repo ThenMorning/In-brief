@@ -1,4 +1,4 @@
-# easy-word
+# In-brief
 
 > A Mpvue project
 
