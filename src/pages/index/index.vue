@@ -21,6 +21,7 @@ export default {
           },
           dynamicsVisitorInfo: {
             likeCount: 10,
+            unlikeCount: 10,
             commentCount: 20
           },
           dynamicsComments: [
@@ -47,6 +48,7 @@ export default {
           },
           dynamicsVisitorInfo: {
             likeCount: 4,
+            unlikeCount: 13,
             commentCount: 10
           },
           dynamicsComments: [
@@ -76,6 +78,6 @@ export default {
 
 <style scoped>
 .container{
-  padding: 0;
+  padding:20rpx;
 }
 </style>
