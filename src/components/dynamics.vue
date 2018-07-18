@@ -1,9 +1,9 @@
 <template>
-  <div class="dynamics-container">
+  <div class="dynamics-container" @click="clickHandle">
     <!-- 用户信息块 -->
     <div class="userinfo">
       <!-- 用户头像 -->
-      <img class="userinfo-icon" v-if="dynamicsUserInfo.iconUrl" :src="dynamicsUserInfo.iconUrl" background-size="cover" />
+      <img id="userIcon" class="userinfo-icon" v-if="dynamicsUserInfo.iconUrl" :src="dynamicsUserInfo.iconUrl" background-size="cover" />
       <!-- 文字区域 -->
       <div class="userinfo-text">
         <!-- 用户名 -->
@@ -24,21 +24,21 @@
       <!-- 喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-like">
         <!-- 喜欢图标 -->
-        <i class="icon inBriefFont icon-like" :class="{active:dynamicsVisitorInfo.isLike}"></i>
+        <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsVisitorInfo.isLike}"></i>
         <!-- 喜欢个数 -->
         <lable>{{dynamicsVisitorInfo.likeCount}}</lable>
       </div>
       <!-- 不喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-unlike">
         <!-- 不喜欢图标 -->
-        <i class="icon inBriefFont icon-unlike" :class="{active:dynamicsVisitorInfo.isUnlike}"></i>
+        <i id="unLikeBtn" class="icon inBriefFont icon-unlike" :class="{active:dynamicsVisitorInfo.isUnlike}"></i>
         <!-- 不喜欢个数 -->
         <lable>{{dynamicsVisitorInfo.unlikeCount}}</lable>
       </div>
       <!-- 评论按钮 -->
       <div class="visitorinfo-vetically visitorinfo-comment">
         <!-- 评论图标 -->
-        <i class="icon inBriefFont icon-comment"></i>
+        <i id="commentBtn" class="icon inBriefFont icon-comment"></i>
         <!-- 评论个数 -->
         <lable>{{dynamicsVisitorInfo.commentCount}}</lable>
       </div>
@@ -63,6 +63,29 @@
         dynamicsContent: this.dynamicsData.dynamicsContent,
         dynamicsVisitorInfo: this.dynamicsData.dynamicsVisitorInfo,
         dynamicsComments: this.dynamicsData.dynamicsComments
+      }
+    },
+    methods: {
+      clickHandle: function (e) {
+        switch (e.target.id) {
+          case 'userIcon':
+            console.log('用户头像')
+            break
+          case 'likeBtn':
+            console.log('喜欢按钮')
+            break
+          case 'unLikeBtn':
+            console.log('不喜欢按钮')
+            break
+          case 'commentBtn':
+            console.log('评论按钮')
+            break
+          case 'commentName':
+            console.log('评论人姓名')
+            break
+          default:
+            console.log('其他地方')
+        }
       }
     },
     created () {}
@@ -96,20 +119,13 @@
     align-items: flex-start;
   }
 
-  .userinfo-text-name {
-  }
-
   .userinfo-text-motto {
-    font-size:25rpx;
+    font-size: 25rpx;
   }
 
   .content-text {
     margin: 20rpx 0 20rpx 45rpx;
-  }
-
-  .content-create-time {
-    /* position: absolute;
-    right: 0rpx; */
+    font-size: 35rpx;
   }
 
   .visitorinfo {
@@ -123,8 +139,8 @@
     align-items: center;
   }
 
-  .active{
-    color:red;
+  .active {
+    color: red;
   }
 
   .visitorinfo-like {
