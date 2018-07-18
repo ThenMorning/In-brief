@@ -9,8 +9,8 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
-	"projectname": "easy-word",
+	"appid": "wx9557005ddf373291",
+	"projectname": "in%20-brief",
 	"condition": {
 		"search": {
 			"current": -1,
