@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 消息通知块 -->
-    <div class="message-block">
+    <div class="message-block" @click="clickHandle">
       <!-- 消息图标 -->
       <i class="icon inBriefFont icon-notice message-icon" :class="{active:messageCount > 0}"></i>
       <!-- 消息数量 -->
@@ -25,97 +25,105 @@
 </template>
 
 <script>
-  import funButton from '@/components/funButton'
-  export default {
-    data () {
-      return {
-        userInfo: {},
-        messageCount: 1,
-        funList: [{
+import funButton from '@/components/funButton'
+export default {
+  data () {
+    return {
+      userInfo: {},
+      messageCount: 1,
+      funList: [
+        {
           btnName: '我的发表',
           btnNameColor: '#000000',
           btnIcon: 'record',
-          btnIconColor: '#a2e1d4'
+          btnIconColor: '#a2e1d4',
+          btnCode: 'publish'
         },
         {
           btnName: '我的喜欢',
           btnNameColor: '#000000',
           btnIcon: 'like',
-          btnIconColor: '#e3c887'
+          btnIconColor: '#e3c887',
+          btnCode: 'like'
         },
         {
           btnName: '设置',
           btnNameColor: '#000000',
           btnIcon: 'setting',
-          btnIconColor: '#acf6ef'
+          btnIconColor: '#acf6ef',
+          btnCode: 'setting'
         },
         {
           btnName: '更多',
           btnNameColor: '#000000',
           btnIcon: 'more',
-          btnIconColor: '#cbf5fb'
+          btnIconColor: '#cbf5fb',
+          btnCode: 'more'
         }
-
-        ]
-      }
-    },
-    components: {
-      funButton
-    },
-    methods: {
-
-    },
-
-    onShow () {
-      this.userInfo = this.$store.state.userInfo
-      // 这里获取消息数量
+      ]
     }
+  },
+  components: {
+    funButton
+  },
+  methods: {
+    clickHandle: function () {
+      wx.navigateTo({
+        url: 'application/notice/main'
+      })
+    }
+  },
+
+  onShow () {
+    this.userInfo = this.$store.state.userInfo
+    // 这里获取消息数量
   }
+}
 </script>
 
 <style scoped>
-  .userinfo-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.userinfo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .userinfo-avatar {
-    width: 128rpx;
-    height: 128rpx;
-    margin: 20rpx;
-    border-radius: 50%;
-  }
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
 
-  .userinfo-nickname {
-    color: #aaa;
-    text-align: center;
-  }
+.userinfo-nickname {
+  color: #aaa;
+  text-align: center;
+}
 
-  .userinfo-motto {
-    margin-top: 10px;
-  }
+.userinfo-motto {
+  margin-top: 10px;
+}
 
-  .message-block {
-    margin-top: 30rpx;
-  }
+.message-block {
+  margin-top: 30rpx;
+}
 
-  .message-icon {
-    font-size: 70rpx;
-  }
+.message-icon {
+  font-size: 70rpx;
+}
 
-  .message-count {
-    color: red;
-    float: right;
-    margin-top: -90rpx;
-  }
+.message-count {
+  color: red;
+  float: right;
+  margin-top: -90rpx;
+}
 
-  .userfun-block {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    /* justify-content: space-around; */
-    flex-wrap: wrap
-  }
+.userfun-block {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  /* justify-content: space-around; */
+  flex-wrap: wrap;
+}
 </style>

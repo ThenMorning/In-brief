@@ -1,3 +1,10 @@
+const route = {
+  'publish': 'application/publish/main',
+  'like': 'application/like/main',
+  'setting': 'application/setting/main',
+  'more': 'application/more/main',
+  'notice': 'application/notice/main'
+}
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -18,7 +25,12 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+export function getRouteUrl (routeName) {
+  return route[routeName]
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  getRouteUrl
 }

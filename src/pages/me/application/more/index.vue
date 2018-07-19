@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-   这里是setting
+   这里是more
   </div>
 </template>
 

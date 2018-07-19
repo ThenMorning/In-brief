@@ -4,6 +4,6 @@ const app = new Vue(App)
 app.$mount()
 export default{
   config: {
-    navigationBarTitleText: '设置'
+    navigationBarTitleText: '我的喜欢'
   }
 }
