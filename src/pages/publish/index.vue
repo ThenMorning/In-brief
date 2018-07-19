@@ -1,0 +1,44 @@
+<template>
+  <div class="container">
+  </div>
+</template>
+
+<script>
+
+export default {
+  data () {
+    return {
+      userInfo: {}
+    }
+  },
+
+  methods: {
+
+  }
+}
+</script>
+
+<style scoped>
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 150px;
+}
+
+
+</style>
