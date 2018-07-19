@@ -1,6 +1,6 @@
 <template>
   <div class="hot-topic-container">
-    hahahah
+    这里是热门话题
   </div>
 </template>
 

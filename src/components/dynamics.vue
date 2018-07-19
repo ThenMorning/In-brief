@@ -1,7 +1,7 @@
 <template>
   <div class="dynamics-container" @click="clickHandle">
     <!-- 用户信息块 -->
-    <div class="userinfo">
+    <div class="userinfo-block">
       <!-- 用户头像 -->
       <img id="userIcon" class="userinfo-icon" v-if="dynamicsUserInfo.iconUrl" :src="dynamicsUserInfo.iconUrl" background-size="cover" />
       <!-- 文字区域 -->
@@ -15,12 +15,12 @@
       <!-- <span class="content-create-time">{{dynamicsContent.createTime}}</span> -->
     </div>
     <!-- 动态内容块 -->
-    <div class="content">
+    <div class="content-block">
       <!-- 动态内容 -->
       <p class="content-text">{{dynamicsContent.text}}</p>
     </div>
     <!-- 访客行为块 -->
-    <div class="visitorinfo">
+    <div class="visitorinfo-block">
       <!-- 喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-like">
         <!-- 喜欢图标 -->
@@ -44,7 +44,7 @@
       </div>
     </div>
     <!-- 评论内容块 -->
-    <div class="comments">
+    <div class="comments-block">
       <comment v-for="(comment,index) in dynamicsComments" :commentData="comment" :key="index"></comment>
     </div>
   </div>
@@ -100,7 +100,7 @@
     background: #ffffff;
   }
 
-  .userinfo {
+  .userinfo-block {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -128,7 +128,7 @@
     font-size: 35rpx;
   }
 
-  .visitorinfo {
+  .visitorinfo-block {
     display: flex;
     justify-content: space-around;
   }
@@ -147,7 +147,7 @@
     margin-left: 375rpx;
   }
 
-  .comments {
+  .comments-block {
     margin: 20rpx 0rpx 0rpx 45rpx;
     padding: 40rpx 0;
     border-top: 1px solid #cbf5fb;

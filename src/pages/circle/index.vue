@@ -183,18 +183,30 @@
       hotTopic
     },
     methods: {},
-    mounted () {},
-    created () {}
+    created () {
+      // console.log('page index created', this)
+    },
+    mounted () {
+      // console.log('mounted', this)
+    },
+    onLoad () {
+      // console.log('page index onLoad', this)
+    },
+    onShow () {
+      // console.log('onShow', this)
+    },
+    onUnload () {
+      // console.log('onUnload', this)
+    },
+    onHide () {
+      // console.log('onHide', this)
+    }
   }
 </script>
 
 <style scoped>
   .container {
-    margin: 0;
-    padding: 0;
     background: #f2f2f2;
-    overflow: hidden;
-    overflow-y: auto;
   }
 
   .swiper-block {
