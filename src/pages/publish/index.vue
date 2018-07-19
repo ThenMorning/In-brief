@@ -20,7 +20,7 @@
         publishTxaOption: {
           content: '',
           maxlength: 20,
-          focus: true
+          focus: false
         },
         publishBtnOption: {
           loading: false
@@ -39,7 +39,7 @@
       this.publishTxaOption.focus = true
     },
     onHide () {
-      this.publishTxaOption.focus = false
+
     }
   }
 </script>

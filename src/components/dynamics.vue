@@ -139,10 +139,6 @@
     align-items: center;
   }
 
-  .active {
-    color: red;
-  }
-
   .visitorinfo-like {
     margin-left: 375rpx;
   }

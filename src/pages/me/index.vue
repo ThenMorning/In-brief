@@ -1,59 +1,121 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
+  <div class="container">
     <!-- 用户信息块 -->
     <div class="userinfo-block">
       <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         <span>{{userInfo.nickName}}</span>
       </div>
+      <div class="userinfo-motto" v-if="userInfo.motto">
+        <span>{{userInfo.motto}}</span>
+      </div>
+    </div>
+    <!-- 消息通知块 -->
+    <div class="message-block">
+      <!-- 消息图标 -->
+      <i class="icon inBriefFont icon-notice message-icon" :class="{active:messageCount > 0}"></i>
+      <!-- 消息数量 -->
+      <span class="message-count" v-if="messageCount > 0">{{messageCount}}</span>
     </div>
     <!-- 用户功能块 -->
-    <div></div>
+    <div class="userfun-block">
+      <fun-button v-for="(fun,index) in funList" :key="index" :funButtonData="fun"></fun-button>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      userInfo: {}
+  import funButton from '@/components/funButton'
+  export default {
+    data () {
+      return {
+        userInfo: {},
+        messageCount: 1,
+        funList: [{
+          btnName: '我的发表',
+          btnNameColor: '#000000',
+          btnIcon: 'record',
+          btnIconColor: '#a2e1d4'
+        },
+        {
+          btnName: '我的喜欢',
+          btnNameColor: '#000000',
+          btnIcon: 'like',
+          btnIconColor: '#e3c887'
+        },
+        {
+          btnName: '设置',
+          btnNameColor: '#000000',
+          btnIcon: 'setting',
+          btnIconColor: '#acf6ef'
+        },
+        {
+          btnName: '更多',
+          btnNameColor: '#000000',
+          btnIcon: 'more',
+          btnIconColor: '#cbf5fb'
+        }
+
+        ]
+      }
+    },
+    components: {
+      funButton
+    },
+    methods: {
+
+    },
+
+    onShow () {
+      this.userInfo = this.$store.state.userInfo
+      // 这里获取消息数量
     }
-  },
-
-  computed: {
-  },
-
-  methods: {
-  },
-
-  onShow () {
-    this.userInfo = this.$store.state.userInfo
-    console.log(this.userInfo)
   }
-}
 </script>
 
 <style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .userinfo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
+  .userinfo-avatar {
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+  }
 
-.userinfo-nickname {
-  color: #aaa;
-}
+  .userinfo-nickname {
+    color: #aaa;
+    text-align: center;
+  }
 
-.usermotto {
-  margin-top: 150px;
-}
+  .userinfo-motto {
+    margin-top: 10px;
+  }
 
+  .message-block {
+    margin-top: 30rpx;
+  }
 
+  .message-icon {
+    font-size: 70rpx;
+  }
+
+  .message-count {
+    color: red;
+    float: right;
+    margin-top: -90rpx;
+  }
+
+  .userfun-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    /* justify-content: space-around; */
+    flex-wrap: wrap
+  }
 </style>
