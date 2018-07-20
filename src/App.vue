@@ -35,9 +35,17 @@
     overflow-y: auto;
     margin: 0;
   }
-  .active{
-    color:red;
+
+  .active {
+    color: red;
   }
+
+  .vetically {
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+
 
   /* this rule will be remove */
 

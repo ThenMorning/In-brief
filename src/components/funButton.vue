@@ -1,5 +1,5 @@
 <template>
-  <div class="fun-button-container" @click="clickHandle">
+  <div class="fun-button-container vetically" @click="clickHandle">
     <!-- 功能按钮块 -->
     <div class="fun-button-block">
       <!-- 功能按钮图标 -->
@@ -43,9 +43,6 @@ export default {
 .fun-button-container {
   width: 375rpx;
   height: 375rpx;
-  justify-content: center;
-  align-items: center;
-  display: flex;
 }
 
 .fun-button-block {

@@ -4,8 +4,8 @@
     <div class="swiper-block">
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
         <block v-for="(swiperItem, index) in swiperList" :key="index">
-          <swiper-item>
-            <hot-topic></hot-topic>
+          <swiper-item class="vetically">
+            <hot-topic :hotTopicData="swiperItem"></hot-topic>
           </swiper-item>
         </block>
       </swiper>
@@ -26,9 +26,11 @@
     data () {
       return {
         swiperList: [
-          'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-          'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+          {
+            name: '张三',
+            content: '我本可以忍受黑暗，假若我不曾见过光明。',
+            time: '2018-07-17'
+          }
         ],
         dynamicsList: [{
           dynamicsUserInfo: {
