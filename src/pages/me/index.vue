@@ -2,9 +2,9 @@
   <div class="container">
     <!-- 用户信息块 -->
     <div class="userinfo-block">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+      <img class="userinfo-avatar" v-if="userInfo.avatar_url" :src="userInfo.avatar_url" background-size="cover" />
       <div class="userinfo-nickname">
-        <span>{{userInfo.nickName}}</span>
+        <span>{{userInfo.user_name}}</span>
       </div>
       <div class="userinfo-motto" v-if="userInfo.motto">
         <span>{{userInfo.motto}}</span>

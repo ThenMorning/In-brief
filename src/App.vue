@@ -7,26 +7,33 @@
         wx.login({
           success: (res) => {
             let code = res.code
+            // 调用微信用户信息接口 获取用户名
             wx.getUserInfo({
               success: (res) => {
-                this.userInfo = res.userInfo
+                console.log(res)
+                // 通过code 在后台获取open_id 作为查询条件查询该用户
                 wx.request({
-                  url: 'http://127.0.0.1:3000/api/user', // 仅为示例，并非真实的接口地址
+                  url: 'http://127.0.0.1:3000/api/user',
                   method: 'POST',
                   data: {
                     code: code,
-                    name: this.userInfo.nickName
+                    name: res.userInfo.nickName,
+                    avatarUrl: res.userInfo.avatarUrl,
+                    city: res.userInfo.city,
+                    province: res.userInfo.province,
+                    country: res.userInfo.country,
+                    gender: res.userInfo.gender
                   },
                   header: {
                     'content-type': 'application/json' // 默认值
                   },
-                  success: function (res) {
-                    console.log(res)
+                  success: (res) => {
+                    // console.log(res.data[0])
+                    this.userInfo = res.data[0]
+                    // 将用户信息保存到store
+                    this.$store.dispatch('saveUserInfo', this.userInfo)
                   }
                 })
-                // 通过微信用户名查询用户其他信息
-
-                this.$store.dispatch('saveUserInfo', this.userInfo)
               }
             })
           }
