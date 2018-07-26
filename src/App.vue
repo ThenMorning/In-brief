@@ -5,11 +5,27 @@
       getUserInfo () {
         // 调用登录接口
         wx.login({
-          success: () => {
+          success: (res) => {
+            let code = res.code
             wx.getUserInfo({
               success: (res) => {
                 this.userInfo = res.userInfo
+                wx.request({
+                  url: 'http://127.0.0.1:3000/api/user', // 仅为示例，并非真实的接口地址
+                  method: 'POST',
+                  data: {
+                    code: code,
+                    name: this.userInfo.nickName
+                  },
+                  header: {
+                    'content-type': 'application/json' // 默认值
+                  },
+                  success: function (res) {
+                    console.log(res)
+                  }
+                })
                 // 通过微信用户名查询用户其他信息
+
                 this.$store.dispatch('saveUserInfo', this.userInfo)
               }
             })
