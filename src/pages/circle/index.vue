@@ -186,22 +186,30 @@
     },
     methods: {},
     created () {
-      // console.log('page index created', this)
+      // // 调用动态列表接口
+      wx.request({
+        url: 'http://127.0.0.1:3000/api/dynamics',
+        method: 'GET',
+        data: {
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          console.log(res)
+        }
+      })
     },
     mounted () {
-      // console.log('mounted', this)
     },
     onLoad () {
-      // console.log('page index onLoad', this)
+
     },
     onShow () {
-      // console.log('onShow', this)
     },
     onUnload () {
-      // console.log('onUnload', this)
     },
     onHide () {
-      // console.log('onHide', this)
     }
   }
 </script>

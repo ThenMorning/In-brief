@@ -9,13 +9,14 @@
       <div class="userinfo-motto" v-if="userInfo.motto">
         <span>{{userInfo.motto}}</span>
       </div>
+      <button v-if="!userInfo.user_name" open-type="getUserInfo" @getuserinfo="bindGetUserInfo">登录</button>
     </div>
     <!-- 消息通知块 -->
-    <div class="message-block" @click="clickHandle">
+    <div class="message-block" @click="clickHandle" v-if="messageCount > 0">
       <!-- 消息图标 -->
       <i class="icon inBriefFont icon-notice message-icon" :class="{active:messageCount > 0}"></i>
       <!-- 消息数量 -->
-      <span class="message-count" v-if="messageCount > 0">{{messageCount}}</span>
+      <span class="message-count" >{{messageCount}}</span>
     </div>
     <!-- 用户功能块 -->
     <div class="userfun-block">
@@ -30,7 +31,7 @@ export default {
   data () {
     return {
       userInfo: {},
-      messageCount: 1,
+      messageCount: 0,
       funList: [
         {
           btnName: '我的发表',
@@ -70,6 +71,38 @@ export default {
     clickHandle: function () {
       wx.navigateTo({
         url: 'application/notice/main'
+      })
+    },
+    bindGetUserInfo (e) {
+      let userInfo = e.mp.detail.userInfo
+      wx.login({
+        success: res => {
+          let code = res.code
+          // 调用微信用户信息接口 获取用户名
+          // 通过code 在后台获取open_id 作为查询条件查询该用户
+          wx.request({
+            url: 'http://127.0.0.1:3000/api/user',
+            method: 'POST',
+            data: {
+              code: code,
+              name: userInfo.nickName,
+              avatarUrl: userInfo.avatarUrl,
+              city: userInfo.city,
+              province: userInfo.province,
+              country: userInfo.country,
+              gender: userInfo.gender
+            },
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success: res => {
+              // console.log(res.data[0])
+              this.userInfo = res.data[0]
+              // 将用户信息保存到store
+              this.$store.dispatch('saveUserInfo', this.userInfo)
+            }
+          })
+        }
       })
     }
   },
