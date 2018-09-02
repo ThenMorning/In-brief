@@ -22,6 +22,7 @@
 <script>
   import dynamics from '@/components/dynamics'
   import hotTopic from '@/components/hotTopic'
+  import {GetData} from '@/utils/fetchData'
   export default {
     data () {
       return {
@@ -186,18 +187,9 @@
     },
     methods: {},
     created () {
-      // // 调用动态列表接口
-      wx.request({
-        url: 'http://127.0.0.1:3000/api/dynamics',
-        method: 'GET',
-        data: {
-        },
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: (res) => {
-          console.log(res)
-        }
+      // 调用动态列表接口
+      GetData('dynamics').then((res) => {
+        console.log(res)
       })
     },
     mounted () {
