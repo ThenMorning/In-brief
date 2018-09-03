@@ -3,13 +3,13 @@
     <!-- 用户信息块 -->
     <div class="userinfo-block">
       <!-- 用户头像 -->
-      <img id="userIcon" class="userinfo-icon" v-if="dynamicsUserInfo.iconUrl" :src="dynamicsUserInfo.iconUrl" background-size="cover" />
+      <img id="userIcon" class="userinfo-icon" v-if="dynamicsData.avatar_url" :src="dynamicsData.avatar_url" background-size="cover" />
       <!-- 文字区域 -->
       <div class="userinfo-text">
         <!-- 用户名 -->
-        <span class="userinfo-text-name">{{dynamicsUserInfo.name}}</span>
+        <span class="userinfo-text-name">{{dynamicsData.user_name}}</span>
         <!-- 座右铭 -->
-        <span class="userinfo-text-motto">{{dynamicsUserInfo.motto}}</span>
+        <span class="userinfo-text-motto">{{dynamicsData.motto}}</span>
       </div>
       <!-- 动态创建时间 -->
       <!-- <span class="content-create-time">{{dynamicsContent.createTime}}</span> -->
@@ -17,34 +17,34 @@
     <!-- 动态内容块 -->
     <div class="content-block">
       <!-- 动态内容 -->
-      <p class="content-text">{{dynamicsContent.text}}</p>
+      <p class="content-text">{{dynamicsData.content}}</p>
     </div>
     <!-- 访客行为块 -->
     <div class="visitorinfo-block">
       <!-- 喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-like">
         <!-- 喜欢图标 -->
-        <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsVisitorInfo.isLike}"></i>
+        <!-- <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsVisitorInfo.isLike}"></i> -->
         <!-- 喜欢个数 -->
-        <lable>{{dynamicsVisitorInfo.likeCount}}</lable>
+        <lable v-if="dynamicsData.like_count">{{dynamicsData.like_count}}</lable>
       </div>
       <!-- 不喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-unlike">
         <!-- 不喜欢图标 -->
-        <i id="unLikeBtn" class="icon inBriefFont icon-unlike" :class="{active:dynamicsVisitorInfo.isUnlike}"></i>
+        <!-- <i id="unLikeBtn" class="icon inBriefFont icon-unlike" :class="{active:dynamicsVisitorInfo.isUnlike}"></i> -->
         <!-- 不喜欢个数 -->
-        <lable>{{dynamicsVisitorInfo.unlikeCount}}</lable>
+        <lable v-if="dynamicsData.unlike_count">{{dynamicsData.unlike_count}}</lable>
       </div>
       <!-- 评论按钮 -->
       <div class="visitorinfo-vetically visitorinfo-comment">
         <!-- 评论图标 -->
         <i id="commentBtn" class="icon inBriefFont icon-comment"></i>
         <!-- 评论个数 -->
-        <lable>{{dynamicsVisitorInfo.commentCount}}</lable>
+        <lable v-if="dynamicsData.comment_count">{{dynamicsData.comment_count}}</lable>
       </div>
     </div>
     <!-- 评论内容块 -->
-    <div class="comments-block">
+    <div class="comments-block" v-if="dynamicsComments">
       <comment v-for="(comment,index) in dynamicsComments" :commentData="comment" :key="index"></comment>
     </div>
   </div>
@@ -88,7 +88,9 @@
         }
       }
     },
-    created () {}
+    created () {
+      console.log(this.dynamicsData)
+    }
   }
 </script>
 
