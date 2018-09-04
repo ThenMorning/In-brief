@@ -44,13 +44,14 @@
       </div>
     </div>
     <!-- 评论内容块 -->
-    <div class="comments-block" v-if="dynamicsComments">
-      <comment v-for="(comment,index) in dynamicsComments" :commentData="comment" :key="index"></comment>
+    <div class="comments-block" v-if="dynamicsData.comments.length">
+      <comment v-for="(comment,index) in dynamicsData.comments" :commentData="comment" :key="index"></comment>
     </div>
   </div>
 </template>
 
 <script>
+  import {PostData} from '@/utils/fetchData'
   import comment from '@/components/comment'
   export default {
     props: ['dynamicsData'],
@@ -59,10 +60,6 @@
     },
     data: function () {
       return {
-        dynamicsUserInfo: this.dynamicsData.dynamicsUserInfo,
-        dynamicsContent: this.dynamicsData.dynamicsContent,
-        dynamicsVisitorInfo: this.dynamicsData.dynamicsVisitorInfo,
-        dynamicsComments: this.dynamicsData.dynamicsComments
       }
     },
     methods: {
@@ -73,10 +70,11 @@
             break
           case 'likeBtn':
             console.log('喜欢按钮')
+            this.likeDynamics()
             break
-          case 'unLikeBtn':
-            console.log('不喜欢按钮')
-            break
+          // case 'unLikeBtn':
+          //   console.log('不喜欢按钮')
+          //   break
           case 'commentBtn':
             console.log('评论按钮')
             break
@@ -86,6 +84,16 @@
           default:
             console.log('其他地方')
         }
+      },
+      likeDynamics: function () {
+        const param = {
+          dynamics_id: this.dynamicsData.dynamics_id,
+          user_id: this.$store.state.userInfo.user_id,
+          user_name: this.$store.state.userInfo.user_name
+        }
+        PostData('likes', param).then((res) => {
+          console.log(res)
+        })
       }
     },
     created () {

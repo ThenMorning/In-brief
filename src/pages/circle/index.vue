@@ -81,8 +81,7 @@
 
     // 上拉加载，拉到底部触发
     onReachBottom () {
-    // 到这底部在这里需要做什么事情
-      this.loadMore()
+
     }
   }
 </script>

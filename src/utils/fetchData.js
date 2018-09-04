@@ -1,7 +1,8 @@
 
 const api = {
   dynamics: 'dynamics',
-  user: 'user'
+  user: 'user',
+  likes: 'likes'
 }
 
 const getBaseUrl = () => {

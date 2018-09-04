@@ -1,8 +1,8 @@
 <template>
   <div class="comment-container">
-    <span id="commentName" class="comment-name">{{name}}</span>
+    <span id="commentName" class="comment-name">{{commentData.user_name}}</span>
     <span class="comment-symbol">:</span>
-    <span class="comment-content">{{content}}</span>
+    <span class="comment-content">{{commentData.content}}</span>
   </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
       content: this.commentData.commentContent
     }
   },
-  created () {}
+  created () {
+  }
 }
 </script>
 
