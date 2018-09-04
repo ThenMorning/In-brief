@@ -24,17 +24,17 @@
       <!-- 喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-like">
         <!-- 喜欢图标 -->
-        <!-- <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsVisitorInfo.isLike}"></i> -->
+        <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsData.is_current_user_like}"></i>
         <!-- 喜欢个数 -->
         <lable v-if="dynamicsData.like_count">{{dynamicsData.like_count}}</lable>
       </div>
       <!-- 不喜欢按钮 -->
-      <div class="visitorinfo-vetically visitorinfo-unlike">
+      <!-- <div class="visitorinfo-vetically visitorinfo-unlike"> -->
         <!-- 不喜欢图标 -->
         <!-- <i id="unLikeBtn" class="icon inBriefFont icon-unlike" :class="{active:dynamicsVisitorInfo.isUnlike}"></i> -->
         <!-- 不喜欢个数 -->
-        <lable v-if="dynamicsData.unlike_count">{{dynamicsData.unlike_count}}</lable>
-      </div>
+        <!-- <lable v-if="dynamicsData.unlike_count">{{dynamicsData.unlike_count}}</lable> -->
+      <!-- </div> -->
       <!-- 评论按钮 -->
       <div class="visitorinfo-vetically visitorinfo-comment">
         <!-- 评论图标 -->
@@ -89,7 +89,6 @@
       }
     },
     created () {
-      console.log(this.dynamicsData)
     }
   }
 </script>

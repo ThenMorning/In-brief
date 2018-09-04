@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 用户信息块 -->
     <div class="userinfo-block">
-      <img class="userinfo-avatar" v-if="userInfo.avatar_url" :src="userInfo.avatar_url" background-size="cover" />
+      <img class="userinfo-avatar" v-if="userInfo.avatar_url" :src="userInfo.avatar_url" background-size="cover" @click="test" />
       <div class="userinfo-nickname">
         <span>{{userInfo.user_name}}</span>
       </div>
@@ -31,7 +31,7 @@ import {PostData} from '@/utils/fetchData'
 export default {
   data () {
     return {
-      userInfo: {},
+      userInfo: this.$store.state.userInfo || {},
       messageCount: 0,
       funList: [
         {
@@ -69,6 +69,10 @@ export default {
     funButton
   },
   methods: {
+    test: function () {
+      console.log(wx.getStorageInfoSync())
+      console.log(wx.getStorageSync('sessionid'))
+    },
     clickHandle: function () {
       wx.navigateTo({
         url: 'application/notice/main'
@@ -91,7 +95,7 @@ export default {
             gender: userInfo.gender
           }
           PostData('user', param).then((res) => {
-            wx.setStorageSync('sessionid', res.header['Set-Cookie'])
+            wx.setStorageSync('userId', res.data[0].user_id)
             this.userInfo = res.data[0]
             // 将用户信息保存到store
             this.$store.dispatch('saveUserInfo', this.userInfo)

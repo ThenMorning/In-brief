@@ -40,12 +40,25 @@
       dynamics,
       hotTopic
     },
-    methods: {},
-    created () {
+    methods: {
+      getDynamics: function (callBack) {
       // 调用动态列表接口
-      GetData('dynamics').then((res) => {
-        this.dynamicsList = res.data
-      })
+        GetData('dynamics').then((res) => {
+          this.dynamicsList = res.data
+          if (callBack) callBack()
+        })
+      }
+    },
+    created () {
+      if (wx.getStorageSync('userId')) {
+        // 调用登陆接口
+        GetData('user', {user_id: wx.getStorageSync('userId')}).then((res) => {
+          wx.setStorageSync('userId', res.data[0].user_id)
+          // 将用户信息保存到store
+          this.$store.dispatch('saveUserInfo', res.data[0])
+        })
+      }
+      this.getDynamics()
     },
     mounted () {
     },
@@ -57,6 +70,19 @@
     onUnload () {
     },
     onHide () {
+    },
+    async onPullDownRefresh () {
+    // to doing..
+      this.getDynamics(() => {
+        wx.stopPullDownRefresh()
+      })
+    // 停止下拉刷新
+    },
+
+    // 上拉加载，拉到底部触发
+    onReachBottom () {
+    // 到这底部在这里需要做什么事情
+      this.loadMore()
     }
   }
 </script>

@@ -38,6 +38,9 @@ export default {
           duration: 2000,
           mask: true,
           success: () => {
+            if (res.status) {
+              this.publishTxaOption.content = ''
+            }
             this.publishBtnOption.loading = false
           }
         })

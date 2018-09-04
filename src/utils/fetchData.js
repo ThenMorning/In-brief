@@ -35,6 +35,7 @@ export const PostData = (apiName, param) => new Promise((resolve, reject) => {
       'cookie': wx.getStorageSync('sessionid') || '' // 读取cookie
     },
     success: (res) => {
+      if (apiName === 'user') { wx.setStorageSync('sessionid', res.header['Set-Cookie']) }
       resolve(res.data)
     }
   })
