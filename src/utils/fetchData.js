@@ -1,6 +1,7 @@
 
 const api = {
   dynamics: 'dynamics',
+  hotDynamics: 'dynamics/hot',
   user: 'user',
   likes: 'likes'
 }

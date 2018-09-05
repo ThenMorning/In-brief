@@ -30,6 +30,15 @@ export default {
   },
   methods: {
     clickHandle: function () {
+      if (!this.publishTxaOption.content) {
+        wx.showToast({
+          title: '请填写内容',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+        return
+      }
       this.publishBtnOption.loading = true
       PostData('dynamics', {content: this.publishTxaOption.content}).then((res) => {
         wx.showToast({
@@ -48,7 +57,6 @@ export default {
     }
   },
   onLoad () {
-    // console.log('page index onLoad', this)
   },
   onShow () {
     this.publishTxaOption.focus = true

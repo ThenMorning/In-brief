@@ -3,16 +3,16 @@
     <!-- 热门话题块 -->
     <div class="hot-topic-block">
       <!-- 话题内容块 -->
-      <div class="hot-tpic-content">
-        <span>{{content}}</span>
+      <div class="hot-topic-content">
+        <span>{{hotTopicData.content}}</span>
       </div>
       <!-- 话题拥有者块 -->
-      <div class="hot-tpic-name">
-        <span>——{{name}}</span>
+      <div class="hot-topic-name">
+        <span class="hot-topic-name-text">——{{hotTopicData.user_name}}</span>
       </div>
       <!-- 话题创建时间块 -->
-      <div class="hot-tpic-time">
-        <span>{{time}}</span>
+      <div class="hot-topic-time">
+        <span class="hot-topic-time-text">{{hotTopicData.create_time}}</span>
       </div>
     </div>
   </div>
@@ -23,28 +23,38 @@
     props: ['hotTopicData'],
     data: function () {
       return {
-        name: this.hotTopicData.name,
-        content: this.hotTopicData.content,
-        time: this.hotTopicData.time
       }
     },
-    created () {}
+    created () {
+    }
   }
 </script>
 
 <style>
-
-  .hot-tpic-content {
-    font-size: 37rpx;
+  .hot-topic-container{
+        width:100%;
   }
 
-  .hot-tpic-name {
+  .hot-topic-content {
+    font-size: 37rpx;
+    text-align: center;
+  }
+
+  .hot-topic-name {
     font-size: 35rpx;
     text-align: right;
   }
 
-  .hot-tpic-time {
+  .hot-topic-name-text{
+    margin-right:40rpx;
+  }
+
+  .hot-topic-time {
     font-size: 30rpx;
     text-align: right;
+  }
+
+  .hot-topic-time-text{
+    margin-right:40rpx;
   }
 </style>

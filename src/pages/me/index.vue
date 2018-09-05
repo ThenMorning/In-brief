@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 用户信息块 -->
     <div class="userinfo-block">
-      <img class="userinfo-avatar" v-if="userInfo.avatar_url" :src="userInfo.avatar_url" background-size="cover" @click="test" />
+      <img class="userinfo-avatar" v-if="userInfo.avatar_url" :src="userInfo.avatar_url" background-size="cover" />
       <div class="userinfo-nickname">
         <span>{{userInfo.user_name}}</span>
       </div>
@@ -69,10 +69,6 @@ export default {
     funButton
   },
   methods: {
-    test: function () {
-      console.log(wx.getStorageInfoSync())
-      console.log(wx.getStorageSync('sessionid'))
-    },
     clickHandle: function () {
       wx.navigateTo({
         url: 'application/notice/main'

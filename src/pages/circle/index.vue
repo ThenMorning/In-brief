@@ -3,7 +3,7 @@
     <!-- 轮播块 -->
     <div class="swiper-block">
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
-        <block v-for="(swiperItem, index) in swiperList" :key="index">
+        <block v-for="(swiperItem, index) in hotDynamicsList" :key="index">
           <swiper-item class="vetically">
             <hot-topic :hotTopicData="swiperItem"></hot-topic>
           </swiper-item>
@@ -26,13 +26,7 @@
   export default {
     data () {
       return {
-        swiperList: [
-          {
-            name: '张三',
-            content: '我本可以忍受黑暗，假若我不曾见过光明。',
-            time: '2018-07-17'
-          }
-        ],
+        hotDynamicsList: [],
         dynamicsList: []
       }
     },
@@ -41,8 +35,13 @@
       hotTopic
     },
     methods: {
-      getDynamics: function (callBack) {
-      // 调用动态列表接口
+      getData: function (callBack) {
+        // 调用热门话题接口
+        GetData('hotDynamics').then((res) => {
+          this.hotDynamicsList = res.data
+          if (callBack) callBack()
+        })
+        // 调用动态列表接口
         GetData('dynamics').then((res) => {
           this.dynamicsList = res.data
           if (callBack) callBack()
@@ -58,12 +57,11 @@
           this.$store.dispatch('saveUserInfo', res.data[0])
         })
       }
-      this.getDynamics()
+      this.getData()
     },
     mounted () {
     },
     onLoad () {
-
     },
     onShow () {
     },
@@ -73,7 +71,7 @@
     },
     async onPullDownRefresh () {
     // to doing..
-      this.getDynamics(() => {
+      this.getData(() => {
         wx.stopPullDownRefresh()
       })
     // 停止下拉刷新

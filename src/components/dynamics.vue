@@ -24,9 +24,9 @@
       <!-- 喜欢按钮 -->
       <div class="visitorinfo-vetically visitorinfo-like">
         <!-- 喜欢图标 -->
-        <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active:dynamicsData.is_current_user_like}"></i>
+        <i id="likeBtn" class="icon inBriefFont icon-like" :class="{active: isLike}"></i>
         <!-- 喜欢个数 -->
-        <lable v-if="dynamicsData.like_count">{{dynamicsData.like_count}}</lable>
+        <lable class="count-text" v-if="dynamicsData.like_count && (dynamicsData.is_current_user_like && dynamicsData.like_count != 1)">{{dynamicsData.like_count}}</lable>
       </div>
       <!-- 不喜欢按钮 -->
       <!-- <div class="visitorinfo-vetically visitorinfo-unlike"> -->
@@ -40,7 +40,7 @@
         <!-- 评论图标 -->
         <i id="commentBtn" class="icon inBriefFont icon-comment"></i>
         <!-- 评论个数 -->
-        <lable v-if="dynamicsData.comment_count">{{dynamicsData.comment_count}}</lable>
+        <lable class="count-text" v-if="dynamicsData.comment_count">{{dynamicsData.comment_count}}</lable>
       </div>
     </div>
     <!-- 评论内容块 -->
@@ -60,6 +60,7 @@
     },
     data: function () {
       return {
+        isLike: this.dynamicsData.is_current_user_like
       }
     },
     methods: {
@@ -69,34 +70,59 @@
             console.log('用户头像')
             break
           case 'likeBtn':
-            console.log('喜欢按钮')
             this.likeDynamics()
             break
           // case 'unLikeBtn':
           //   console.log('不喜欢按钮')
           //   break
-          case 'commentBtn':
-            console.log('评论按钮')
-            break
+          // case 'commentBtn':
+          //   console.log('评论按钮')
+          //   break
           case 'commentName':
             console.log('评论人姓名')
             break
           default:
-            console.log('其他地方')
+            wx.navigateTo({
+              url: '../other/dynamicsDetail/main?dynamicsId=' + this.dynamicsData.dynamics_id
+            })
         }
       },
       likeDynamics: function () {
+        if (!this.$store.state.userInfo.user_id) {
+          wx.showToast({
+            title: '请先登录!',
+            icon: 'none',
+            duration: 2000,
+            mask: true
+          })
+          return
+        }
         const param = {
           dynamics_id: this.dynamicsData.dynamics_id,
           user_id: this.$store.state.userInfo.user_id,
           user_name: this.$store.state.userInfo.user_name
         }
         PostData('likes', param).then((res) => {
-          console.log(res)
+          if (res.status) {
+            this.isLike = res.data.likeStatus
+          } else {
+            wx.showToast({
+              title: res.message,
+              icon: 'none',
+              duration: 2000,
+              mask: true
+            })
+          }
         })
       }
     },
     created () {
+    },
+    onShow () {
+      const _id = wx.getStorageSync('dynamics_id')
+      if (_id && _id === this.dynamicsData.dynamics_id) {
+        this.isLike = wx.getStorageSync('isLike')
+      }
     }
   }
 </script>
@@ -156,5 +182,9 @@
     margin: 20rpx 0rpx 0rpx 45rpx;
     padding: 40rpx 0;
     border-top: 1px solid #cbf5fb;
+  }
+
+  .count-text{
+    font-size: 20rpx;
   }
 </style>
