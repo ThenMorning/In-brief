@@ -49,7 +49,7 @@
         </div>
         <!-- 评论组件 -->
         <div class="comment-component">
-            <input class="comment-input" :bindfocus="inputFocusHandle" maxlength="20" placeholder="随便说些什么吧，限制20字以内哦" :focus="focus" />
+            <input class="comment-input" @confirm="inputConfirmHandle" maxlength="20" placeholder="随便说些什么吧，限制20字以内哦" :focus="focus" />
         </div>
     </div>
 </template>
@@ -117,8 +117,26 @@ export default {
         }
       })
     },
-    inputFocusHandle: function (e) {
-      console.log(e)
+    inputConfirmHandle (e) {
+      console.log(e.target.value)
+      if (!this.$store.state.userInfo.user_id) {
+        wx.showToast({
+          title: '请先登录!',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+        return
+      }
+      const param = {
+        dynamics_id: this.dynamics.dynamics_id,
+        user_id: this.$store.state.userInfo.user_id,
+        user_name: this.$store.state.userInfo.user_name,
+        content: e.target.value
+      }
+      PostData('comment', param).then((res) => {
+        console.log(res)
+      })
     }
   },
   onLoad (option) {

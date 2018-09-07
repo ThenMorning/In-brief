@@ -3,11 +3,12 @@ const api = {
   dynamics: 'dynamics',
   hotDynamics: 'dynamics/hot',
   user: 'user',
-  likes: 'likes'
+  likes: 'likes',
+  comment: 'comment'
 }
 
 const getBaseUrl = () => {
-  return 'http://127.0.0.1:3000/api/'
+  return 'http://192.168.123.1:3000/api/'
 }
 
 const getApiUrl = (apiName) => {

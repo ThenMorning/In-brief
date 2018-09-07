@@ -30,6 +30,15 @@ export default {
   },
   methods: {
     clickHandle: function () {
+      if (!this.$store.state.userInfo.user_id) {
+        wx.showToast({
+          title: '请先登录!',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+        return
+      }
       if (!this.publishTxaOption.content) {
         wx.showToast({
           title: '请填写内容',
