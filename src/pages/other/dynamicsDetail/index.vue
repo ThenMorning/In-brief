@@ -1,5 +1,6 @@
 <template>
     <div class="container" @click="clickHandle">
+        <div style="margin-bottom:80rpx;width:100%;">
         <!-- 动态内容 -->
         <div class="content">
             <!-- 用户信息块 -->
@@ -40,16 +41,26 @@
         <!-- 评论内容 -->
         <div class="comment" v-for="(comment,index) in dynamics.comments" :key="index">
             <div class="comment-box">
-                <span class="comment-name-text">{{dynamics.user_name}}</span>:
-                <span class="comment-content-text">{{dynamics.content}}</span>
+                <span class="comment-name-text">{{comment.user_name}}</span>:
+                <span class="comment-content-text">{{comment.content}}</span>
             </div>
             <div class="time-box">
-                <span class="comment-create-time-text">{{dynamics.create_time}}</span>
+                <span class="comment-create-time-text">{{comment.create_time}}</span>
             </div>
         </div>
-        <!-- 评论组件 -->
+        <div class="comment" v-for="(comment,index) in localComments" :key="index">
+            <div class="comment-box">
+                <span class="comment-name-text">{{comment.user_name}}</span>:
+                <span class="comment-content-text">{{comment.content}}</span>
+            </div>
+            <div class="time-box">
+                <span class="comment-create-time-text">{{comment.create_time}}</span>
+            </div>
+        </div>
+        </div>
+        <!-- 评论组件-->
         <div class="comment-component">
-            <input class="comment-input" @confirm="inputConfirmHandle" maxlength="20" placeholder="随便说些什么吧，限制20字以内哦" :focus="focus" />
+        <textarea v-model="commentContent"  cursor-spacing="20" fixed="true" @confirm="inputConfirmHandle" maxlength="20" placeholder="随便说些什么吧，限制20字以内哦" :focus="focus" />
         </div>
     </div>
 </template>
@@ -61,7 +72,9 @@ export default {
     return {
       dynamics: {},
       isLike: null,
-      focus: false
+      focus: false,
+      commentContent:'',
+      localComments:[]
     }
   },
   components: {},
@@ -118,10 +131,18 @@ export default {
       })
     },
     inputConfirmHandle (e) {
-      console.log(e.target.value)
       if (!this.$store.state.userInfo.user_id) {
         wx.showToast({
           title: '请先登录!',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+        return
+      }
+      if (!e.target.value) {
+        wx.showToast({
+          title: '请说点什么吧!',
           icon: 'none',
           duration: 2000,
           mask: true
@@ -134,8 +155,36 @@ export default {
         user_name: this.$store.state.userInfo.user_name,
         content: e.target.value
       }
+      const self = this;
       PostData('comment', param).then((res) => {
-        console.log(res)
+        // if (res.status) {
+        //   self.localComments.push({
+        //     "dynamics_id": self.dynamics.dynamics_id,
+        //     "user_id":  self.$store.state.userInfo.user_id,
+        //     "content": e.target.value,
+        //     "create_time": new Date().toLocalString(),
+        //     "user_name": self.$store.state.userInfo.user_name
+        //   })
+        // }
+        console.log(self)
+        wx.showToast({
+          title: res.message,
+          icon: res.status ? 'success' : 'none',
+          duration: 2000,
+          mask: true,
+          success: () => {
+            if (res.status) {
+              this.commentContent = ''
+                 self.localComments.push({
+            "dynamics_id": self.dynamics.dynamics_id,
+            "user_id":  self.$store.state.userInfo.user_id,
+            "content": e.target.value,
+            "create_time": new Date().toLocaleString(),
+            "user_name": self.$store.state.userInfo.user_name
+          })
+            }
+          }
+        })
       })
     }
   },
@@ -145,12 +194,17 @@ export default {
       this.isLike = res.data[0].is_current_user_like
     })
   },
-  onShow () {},
-  onHide () {}
+  onShow () {
+    this.localComments = [];
+    console.log( this.localComments)
+  },
+  onHide () {
+  }
 }
 </script>
 
 <style scoped>
+
 .content {
     width: 100%;
     background: #f4f4f4;
@@ -244,18 +298,22 @@ export default {
 .comment-component {
     width: 100%;
     position: fixed;
+    background: #fff;
     bottom: 0;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
 }
 
-.comment-input {
-    margin: 0 auto;
-    padding: 0 10px;
-    height: 34px;
-    border: 1px solid rgba(255,255,255,.8);
-    border-radius: 2px;
-    color: #fff;
-    background: rgba(0,0,0,.15);
-　　font-family: "helvetica neue",arial,sans-serif;
-}
 
+textarea {
+  font-size: 14px;
+    box-sizing: border-box;
+    border: none;
+    box-shadow: none;
+    outline: 0;
+    background: 0 0;
+    width: 100%;
+    padding: 0 15rpx;
+    line-height:80rpx;
+    height:80rpx;
+}
 </style>
