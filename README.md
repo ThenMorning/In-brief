@@ -47,9 +47,9 @@ npm run build --report
 
 # Rendering
 
- ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/index.PNG)
-  ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/publish.PNG)
-   ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/me.PNG)
-   ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/detail.PNG)
-    ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/comment.PNG)
-       ![img](https://github.com/WinwardZ/In-brief/edit/master/rendering/comment_success.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/index.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/publish.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/me.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/detail.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/comment.PNG)
+ ![img](https://github.com/WinwardZ/In-brief/blob/master/rendering/comment_success.PNG)
